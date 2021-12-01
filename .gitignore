@@ -1,0 +1,18 @@
+# dependencies
+node_modules
+
+# builds
+build
+
+# tests
+coverage
+
+# logs
+logs
+*.log
+
+# misc
+.DS_Store
+.npm
+.env
+.eslintcache
