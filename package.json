@@ -1,0 +1,15 @@
+{
+  "name": "eslint-plugin-react-hooks-addons",
+  "version": "0.1.0",
+  "private": true,
+  "author": "Zheng Song",
+  "license": "MIT",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint ."
+  },
+  "keywords": [],
+  "devDependencies": {
+    "eslint": "^8.3.0"
+  }
+}
