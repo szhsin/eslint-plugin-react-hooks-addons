@@ -7,7 +7,8 @@
   "main": "index.js",
   "scripts": {
     "build": "babel src/rules/*.js --out-dir lib/rules",
-    "lint": "eslint ."
+    "lint": "eslint src/",
+    "eg": "eslint --rulesdir lib/rules examples/"
   },
   "keywords": [],
   "devDependencies": {

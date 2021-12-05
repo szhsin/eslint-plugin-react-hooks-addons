@@ -1,0 +1,12 @@
+{
+  "root": true,
+  "env": {
+    "es2021": true
+  },
+  "parserOptions": {
+    "sourceType": "module"
+  },
+  "rules": {
+    "no-unused-deps": 1
+  }
+}
