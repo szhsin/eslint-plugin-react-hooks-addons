@@ -50,9 +50,13 @@ module.exports = {
         if (unusedDeps.length > 0) {
           context.report({
             node: depArray,
-            message: `React hook ${
-              parent.callee.name
-            } has unused dependencies: ${unusedDeps.join(', ')}`
+            message: `React Hook ${parent.callee.name} has ${
+              unusedDeps.length > 1 ? 'unused dependencies' : 'an unused dependency'
+            }: ${unusedDeps
+              .map((dep) => `'${dep}'`)
+              .join(
+                ', '
+              )}. They might cause the effect Hook to run unintentionally. Either exclude them or prepend /* effect dep */ comments to make the intention explicit.`
           });
         }
       }
