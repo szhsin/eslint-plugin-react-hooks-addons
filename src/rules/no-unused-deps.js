@@ -1,9 +1,5 @@
 'use strict';
 
-//------------------------------------------------------------------------------
-// Rule Definition
-//------------------------------------------------------------------------------
-
 const hookNames = ['useEffect', 'useLayoutEffect'];
 
 /**
@@ -12,7 +8,7 @@ const hookNames = ['useEffect', 'useLayoutEffect'];
 module.exports = {
   meta: {
     type: 'problem',
-    schema: [] // no options
+    schema: []
   },
   create(context) {
     return {
@@ -28,10 +24,8 @@ module.exports = {
         }
 
         const through = context.getScope().through.map((r) => r.identifier.name);
-
         const depArray = parent.arguments[1];
         const deps = depArray.elements.filter(({ type }) => type === 'Identifier');
-
         const unusedDeps = [];
         const sourceCode = context.getSourceCode();
         for (const dep of deps) {
