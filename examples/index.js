@@ -1,15 +1,16 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 export function App() {
-  const usedVar = 'used';
+  const [usedVar, setUsedVar] = useState('');
   const unusedVar = 'unused';
   const effectVar = 'effect';
-  const maskedVar = 'masked';
+  const shadowedVar = 'shadowed';
 
   useEffect(() => {
-    const maskedVar = `no-unused-deps example ${usedVar}`;
-    document.title = maskedVar;
-  }, [usedVar, unusedVar, /* effect dep */ effectVar, maskedVar]);
+    setUsedVar('used');
+    const shadowedVar = `no-unused-deps example ${usedVar}`;
+    document.title = shadowedVar;
+  }, [unusedVar, /* effect dep */ effectVar, shadowedVar]);
 
   return null;
 }
