@@ -1,40 +1,36 @@
-"use strict";
+'use strict';
 
 //------------------------------------------------------------------------------
 // Rule Definition
 //------------------------------------------------------------------------------
 
-const hookNames = ["useEffect", "useLayoutEffect"];
+const hookNames = ['useEffect', 'useLayoutEffect'];
 
 /**
  * @type {import('eslint').Rule.RuleModule}
  */
 module.exports = {
   meta: {
-    type: "problem",
-    schema: [], // no options
+    type: 'problem',
+    schema: [] // no options
   },
   create(context) {
     return {
-      "ArrowFunctionExpression,FunctionExpression": function (node) {
+      'ArrowFunctionExpression,FunctionExpression': function (node) {
         const { parent } = node;
         if (
-          parent.type !== "CallExpression" ||
+          parent.type !== 'CallExpression' ||
           !hookNames.includes(parent.callee.name) ||
           parent.arguments.length < 2 ||
-          parent.arguments[1].type !== "ArrayExpression"
+          parent.arguments[1].type !== 'ArrayExpression'
         ) {
           return;
         }
 
-        const through = context
-          .getScope()
-          .through.map((r) => r.identifier.name);
+        const through = context.getScope().through.map((r) => r.identifier.name);
 
         const depArray = parent.arguments[1];
-        const deps = depArray.elements.filter(
-          ({ type }) => type === "Identifier"
-        );
+        const deps = depArray.elements.filter(({ type }) => type === 'Identifier');
 
         const unusedDeps = [];
         const sourceCode = context.getSourceCode();
@@ -43,7 +39,7 @@ module.exports = {
           if (
             sourceCode
               .getCommentsBefore(dep)
-              .some(({ value }) => value.trim().toLowerCase() === "effect dep")
+              .some(({ value }) => value.trim().toLowerCase() === 'effect dep')
           ) {
             continue;
           }
@@ -56,10 +52,10 @@ module.exports = {
             node: depArray,
             message: `React hook ${
               parent.callee.name
-            } has unused dependencies: ${unusedDeps.join(", ")}`,
+            } has unused dependencies: ${unusedDeps.join(', ')}`
           });
         }
-      },
+      }
     };
-  },
+  }
 };

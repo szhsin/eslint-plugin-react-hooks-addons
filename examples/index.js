@@ -1,10 +1,10 @@
-import { useEffect } from "react";
+import { useEffect } from 'react';
 
 export function App() {
-  const usedVar = "used";
-  const unusedVar = "unused";
-  const effectVar = "effect";
-  const maskedVar = "masked";
+  const usedVar = 'used';
+  const unusedVar = 'unused';
+  const effectVar = 'effect';
+  const maskedVar = 'masked';
 
   useEffect(() => {
     const maskedVar = `no-unused-deps example ${usedVar}`;

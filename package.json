@@ -7,6 +7,7 @@
   "main": "index.js",
   "scripts": {
     "build": "babel src/rules/*.js --out-dir lib/rules",
+    "pret": "prettier --write .",
     "lint": "eslint src/",
     "eg": "eslint --rulesdir lib/rules examples/"
   },
@@ -15,6 +16,8 @@
     "@babel/cli": "^7.16.0",
     "@babel/core": "^7.16.0",
     "@babel/preset-env": "^7.16.4",
-    "eslint": "^8.3.0"
+    "eslint": "^8.3.0",
+    "eslint-config-prettier": "^8.3.0",
+    "prettier": "^2.5.1"
   }
 }
