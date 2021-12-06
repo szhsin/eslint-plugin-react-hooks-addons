@@ -2,7 +2,7 @@
 
 > ESLint plugin that finds unused dependencies in React Hooks.
 
-[![NPM](https://img.shields.io/npm/v/@szhsin/eslint-plugin-react-hooks-addons.svg)](https://www.npmjs.com/package/eslint-plugin-react-hooks-addons)
+[![NPM](https://img.shields.io/npm/v/eslint-plugin-react-hooks-addons.svg)](https://www.npmjs.com/package/eslint-plugin-react-hooks-addons)
 
 ## Why?
 
