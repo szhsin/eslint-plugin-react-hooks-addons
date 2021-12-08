@@ -6,13 +6,14 @@
 
 ## Why?
 
-[eslint-plugin-react-hooks](https://www.npmjs.com/package/eslint-plugin-react-hooks) is awesome for linting the dependency array of React Hooks. However, it doesn't do one thing: unused dependencies in the `useEffect` or `useLayoutEffect` hooks are not reported. Variables, which are included in `useEffect`'s dependency array but not used in its function scope, are perfectly valid in certain use cases. But it might also be a programmatic error which causes the effect hook to run unintentionally.
+[eslint-plugin-react-hooks](https://www.npmjs.com/package/eslint-plugin-react-hooks) is awesome for linting the dependency array of React Hooks. But it doesn't do one thing: unused dependencies in the `useEffect` or `useLayoutEffect` hooks are not reported. Variables, which are included in `useEffect`'s dependency array but not used in its function scope, are perfectly valid in certain use cases. However, it might also be a programmatic error which causes the effect hook to run unintentionally.
 
 Take the following code as an example:
 
 ```js
 const [user1, setUser1] = useState();
 const [user2, setUser2] = useState();
+
 useEffect(() => {
   fetch(`someUrl/${user1}`).then(/* ... */);
   fetch(`someUrl/${user2}`).then(/* ... */);
@@ -24,6 +25,7 @@ Next day you update the code and remove the second `fetch` but forget to remove 
 ```js
 const [user1, setUser1] = useState();
 const [user2, setUser2] = useState();
+
 useEffect(() => {
   fetch(`someUrl/${user1}`).then(/* ... */);
 }, [user1, user2]);
