@@ -1,3 +1,8 @@
+/**
+ * @fileoverview Rule to check unused dependencies in React Hooks
+ * @author Zheng Song
+ */
+
 'use strict';
 
 const hookNames = ['useEffect', 'useLayoutEffect'];
@@ -8,8 +13,13 @@ const hookNames = ['useEffect', 'useLayoutEffect'];
 module.exports = {
   meta: {
     type: 'problem',
-    schema: []
+    schema: [],
+    messages: {
+      unused:
+        'React Hook {{ hook }} has unused dependencies: {{ unusedDeps }}. They might cause the effect Hook to run unintentionally. Either exclude them or prepend /* effect dep */ comments to make the intention explicit.'
+    }
   },
+
   create(context) {
     return {
       'ArrowFunctionExpression,FunctionExpression': function (node) {
@@ -44,13 +54,11 @@ module.exports = {
         if (unusedDeps.length > 0) {
           context.report({
             node: depArray,
-            message: `React Hook ${parent.callee.name} has ${
-              unusedDeps.length > 1 ? 'unused dependencies' : 'an unused dependency'
-            }: ${unusedDeps
-              .map((dep) => `'${dep}'`)
-              .join(
-                ', '
-              )}. They might cause the effect Hook to run unintentionally. Either exclude them or prepend /* effect dep */ comments to make the intention explicit.`
+            messageId: 'unused',
+            data: {
+              hook: parent.callee.name,
+              unusedDeps: unusedDeps.map((dep) => `'${dep}'`).join(', ')
+            }
           });
         }
       }
