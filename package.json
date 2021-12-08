@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-react-hooks-addons",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "author": "Zheng Song",
   "license": "MIT",
   "description": "ESLint plugin that finds unused dependencies in React Hooks.",
@@ -19,6 +19,7 @@
   ],
   "scripts": {
     "build": "babel src/rules/*.js --out-dir lib/rules",
+    "test": "node tests/rules/*.js",
     "pret": "prettier --write .",
     "lint": "eslint src/",
     "eg": "eslint --rulesdir lib/rules examples/"
