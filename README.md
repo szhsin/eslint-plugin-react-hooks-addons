@@ -87,7 +87,7 @@ Then only the `unusedVar` will be reported as an unused dependency.
 You can use a different comment to mark dependencies as effectful:
 ```json
 "rules": {
-  "no-unused-deps": ["warn", { "customComment": "effectful" }]
+  "react-hooks-addons/no-unused-deps": ["warn", { "customComment": "effectful" }]
 }
 ```
 
