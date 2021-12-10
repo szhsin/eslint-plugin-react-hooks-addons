@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-react-hooks-addons",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "author": "Zheng Song",
   "license": "MIT",
   "description": "ESLint plugin that finds unused dependencies in React Hooks.",

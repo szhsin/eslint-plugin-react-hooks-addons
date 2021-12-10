@@ -1,5 +1,7 @@
 {
-  "assumptions": {},
+  "assumptions": {
+    "noDocumentAll": true
+  },
   "presets": [
     [
       "@babel/preset-env",
