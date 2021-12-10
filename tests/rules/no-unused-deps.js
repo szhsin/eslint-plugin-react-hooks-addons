@@ -5,21 +5,27 @@ const { RuleTester } = require('eslint');
 
 const ruleTester = new RuleTester({ parserOptions: { ecmaVersion: 'latest' } });
 
-const getError = (unusedDeps, hook = 'useEffect') => ({
+const getError = (
+  unusedDeps,
+  { hook = 'useEffect', effectComment = 'effect dep' } = {}
+) => ({
   messageId: 'unused',
-  data: { unusedDeps, hook },
+  data: { unusedDeps, hook, effectComment },
   type: 'ArrayExpression'
 });
 
 ruleTester.run('no-unused-deps', rule, {
   valid: [
-    {
-      code: `
-        useEffect(() => {
-            document.title = usedVar;
-        }, [usedVar]);
-      `
-    }
+    `
+      useEffect(() => {
+          document.title = usedVar;
+      }, [usedVar]);
+    `,
+    `
+      useEffect(() => {
+          document.title = usedVar;
+      }, [usedVar, /* effect dep */ effectVar]);
+    `
   ],
 
   invalid: [
@@ -29,7 +35,7 @@ ruleTester.run('no-unused-deps', rule, {
             document.title = usedVar;
         }, [usedVar, unusedVar]);
       `,
-      errors: [getError("'unusedVar'", 'useLayoutEffect')]
+      errors: [getError("'unusedVar'", { hook: 'useLayoutEffect' })]
     },
     {
       code: `
@@ -38,6 +44,15 @@ ruleTester.run('no-unused-deps', rule, {
         }, [usedVar, unusedVar, /* effect dep */ effectVar]);
       `,
       errors: [getError("'unusedVar'")]
+    },
+    {
+      code: `
+        useEffect(() => {
+            document.title = usedVar;
+        }, [usedVar, unusedVar, /* effectful */ effectVar, /* effect dep */ ineffectVar]);
+      `,
+      options: [{ customComment: 'effectful' }],
+      errors: [getError("'unusedVar', 'ineffectVar'", { effectComment: 'effectful' })]
     },
     {
       code: `

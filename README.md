@@ -47,13 +47,13 @@ useEffect(() => {
 
 ## Install
 
-With npm
+with npm
 
 ```bash
 npm install -D eslint-plugin-react-hooks-addons
 ```
 
-Or with Yarn
+or with Yarn
 
 ```bash
 yarn add -D eslint-plugin-react-hooks-addons
@@ -81,6 +81,15 @@ useEffect(() => {
 ```
 
 Then only the `unusedVar` will be reported as an unused dependency.
+
+### Options
+#### `customComment`
+You can use a different comment to mark dependencies as effectful:
+```json
+"rules": {
+  "no-unused-deps": ["warn", { "customComment": "effectful" }]
+}
+```
 
 _Note: this eslint plugin is supposed to work in tandem with [eslint-plugin-react-hooks](https://www.npmjs.com/package/eslint-plugin-react-hooks), as it doesn't check things that have already been reported by that plugin._
 
