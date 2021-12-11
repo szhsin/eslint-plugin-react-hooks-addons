@@ -6,6 +6,15 @@
 'use strict';
 
 const hookNames = ['useEffect', 'useLayoutEffect'];
+const matchHooks = (calleeName, { pattern, replace } = {}) => {
+  let match = false;
+  if (pattern) {
+    match = new RegExp(pattern).test(calleeName);
+    if (replace) return match;
+  }
+
+  return match || hookNames.includes(calleeName);
+};
 
 /**
  * @type {import('eslint').Rule.RuleModule}
@@ -17,8 +26,21 @@ module.exports = {
       {
         type: 'object',
         properties: {
-          customComment: {
+          effectComment: {
             type: 'string'
+          },
+          additionalHooks: {
+            type: 'object',
+            properties: {
+              pattern: {
+                type: 'string'
+              },
+              replace: {
+                type: 'boolean'
+              }
+            },
+            required: ['pattern'],
+            additionalProperties: false
           }
         },
         additionalProperties: false
@@ -26,25 +48,25 @@ module.exports = {
     ],
     messages: {
       unused:
-        'React Hook {{ hook }} has unused dependencies: {{ unusedDeps }}. They might cause the effect Hook to run unintentionally. Either exclude them or prepend /* {{ effectComment }} */ comments to make the intention explicit.'
+        'React Hook {{ hook }} has unused dependencies: {{ unusedDeps }}. They might cause the Hook to run unintentionally. Either exclude them or prepend /* {{ effectComment }} */ comments to make the intention explicit.'
     }
   },
 
   create(context) {
+    const { effectComment = 'effect dep', additionalHooks } = context.options[0] || {};
+
     return {
       'ArrowFunctionExpression,FunctionExpression': function (node) {
         const { parent } = node;
         if (
           parent.type !== 'CallExpression' ||
-          !hookNames.includes(parent.callee.name) ||
           parent.arguments.length < 2 ||
-          parent.arguments[1].type !== 'ArrayExpression'
+          parent.arguments[1].type !== 'ArrayExpression' ||
+          !matchHooks(parent.callee.name, additionalHooks)
         ) {
           return;
         }
 
-        const [option] = context.options;
-        const effectComment = option?.customComment ?? 'effect dep';
         const through = context.getScope().through.map((r) => r.identifier.name);
         const depArray = parent.arguments[1];
         const deps = depArray.elements.filter(({ type }) => type === 'Identifier');
