@@ -51,7 +51,7 @@ ruleTester.run('no-unused-deps', rule, {
             document.title = usedVar;
         }, [usedVar, unusedVar, /* effectful */ effectVar, /* effect dep */ ineffectVar]);
       `,
-      options: [{ customComment: 'effectful' }],
+      options: [{ effectComment: 'effectful' }],
       errors: [getError("'unusedVar', 'ineffectVar'", { effectComment: 'effectful' })]
     },
     {
@@ -73,6 +73,51 @@ ruleTester.run('no-unused-deps', rule, {
         }, [usedVar, unusedVar]);
       `,
       errors: [getError("'unusedVar'")]
+    },
+    {
+      code: `
+        useEffect(() => {
+          document.title = usedVar;
+        }, [usedVar, unusedVar]);
+
+        useLayoutEffect(() => {
+            document.title = usedVar;
+        }, [usedVar, unusedVar]);
+
+        useMyCustomHook(() => {
+          document.title = usedVar;
+        }, [usedVar, unusedVar]);
+      `,
+      options: [{ additionalHooks: { pattern: 'useMyCustomHook|useMyOtherCustomHook' } }],
+      errors: [
+        getError("'unusedVar'"),
+        getError("'unusedVar'", { hook: 'useLayoutEffect' }),
+        getError("'unusedVar'", { hook: 'useMyCustomHook' })
+      ]
+    },
+    {
+      code: `
+        useEffect(() => {
+          document.title = usedVar;
+        }, [usedVar, unusedVar]);
+
+        useLayoutEffect(() => {
+            document.title = usedVar;
+        }, [usedVar, unusedVar]);
+
+        useMyOtherCustomHook(() => {
+          document.title = usedVar;
+        }, [usedVar, unusedVar]);
+      `,
+      options: [
+        {
+          additionalHooks: {
+            pattern: 'useMyCustomHook|useMyOtherCustomHook',
+            replace: true
+          }
+        }
+      ],
+      errors: [getError("'unusedVar'", { hook: 'useMyOtherCustomHook' })]
     }
   ]
 });
