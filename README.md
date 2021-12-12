@@ -1,6 +1,6 @@
 ## eslint-plugin-react-hooks-addons
 
-> ESLint plugin that finds unused dependencies in React Hooks.
+> ESLint rule to check unused dependencies in React Hooks.
 
 [![NPM](https://img.shields.io/npm/v/eslint-plugin-react-hooks-addons.svg)](https://www.npmjs.com/package/eslint-plugin-react-hooks-addons)
 
@@ -83,11 +83,37 @@ useEffect(() => {
 Then only the `unusedVar` will be reported as an unused dependency.
 
 ### Options
-#### `customComment`
+
+#### `effectComment`
+
 You can use a different comment to mark dependencies as effectful:
+
 ```json
 "rules": {
-  "react-hooks-addons/no-unused-deps": ["warn", { "customComment": "effectful" }]
+  "react-hooks-addons/no-unused-deps": [
+    "warn",
+    {
+      "effectComment": "effectful"
+    }
+  ]
+}
+```
+
+#### `additionalHooks`
+
+The rule checks `useEffect` and `useLayoutEffect` hooks by default. It can be configured to check dependencies of custom hooks with the `additionalHooks` option. This option accepts a `pattern` key which is a regex pattern. If you set the `replace` key to `true`, it would replace the default hooks.
+
+```json
+"rules": {
+  "react-hooks-addons/no-unused-deps": [
+    "warn",
+    {
+      "additionalHooks": {
+        "pattern": "useMyCustomHook|useMyOtherCustomHook",
+        "replace": true
+      }
+    }
+  ]
 }
 ```
 
