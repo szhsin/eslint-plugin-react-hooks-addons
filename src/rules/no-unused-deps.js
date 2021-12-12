@@ -71,13 +71,13 @@ module.exports = {
         const depArray = parent.arguments[1];
         const deps = depArray.elements.filter(({ type }) => type === 'Identifier');
         const unusedDeps = [];
-        const sourceCode = context.getSourceCode();
         for (const dep of deps) {
           if (through.includes(dep.name)) continue;
           if (
-            sourceCode
+            context
+              .getSourceCode()
               .getCommentsBefore(dep)
-              .some(({ value }) => value.trim() === effectComment)
+              .some(({ value }) => value.includes(effectComment))
           ) {
             continue;
           }
