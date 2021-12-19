@@ -1,12 +1,12 @@
 ## eslint-plugin-react-hooks-addons
 
-> ESLint rule to check unused dependencies in React Hooks.
+> ESLint rule to check unused and potentially unnecessary dependencies in React Hooks.
 
 [![NPM](https://img.shields.io/npm/v/eslint-plugin-react-hooks-addons.svg)](https://www.npmjs.com/package/eslint-plugin-react-hooks-addons)
 
 ## Why?
 
-[eslint-plugin-react-hooks](https://www.npmjs.com/package/eslint-plugin-react-hooks) is awesome for linting the dependency array of React Hooks. But it doesn't do one thing: unused dependencies in the `useEffect` or `useLayoutEffect` hooks are not reported. Variables, which are included in `useEffect`'s dependency array but not used in its function scope, are perfectly valid in certain use cases. However, it might also be a programmatic error which causes the effect hook to run unintentionally.
+[eslint-plugin-react-hooks](https://www.npmjs.com/package/eslint-plugin-react-hooks) is awesome for linting the dependency array of React Hooks. But it doesn't do one thing: unused dependencies in the `useEffect` or `useLayoutEffect` hooks are not reported. Unused variables in `useEffect`'s dependency array are perfectly valid in some use cases. However, they might be unnecessary in some other cases which cause the effect hook to run unintentionally.
 
 Take the following code as an example:
 
@@ -31,7 +31,7 @@ useEffect(() => {
 }, [user1, user2]);
 ```
 
-Then the `useEffect` will run whenever `user1` or `user2` changes, which is probably not your intention. Similar errors occur more frequently when the hook updater function is large and there is a long dependency array. This eslint plugin checks and reports this kind of error.
+Then the `useEffect` will run whenever `user1` or `user2` changes, which is probably not your intention. Similar errors occur more frequently when the hook callback function is large and there is a long dependency array. This eslint plugin checks and reports this kind of error.
 
 **What if I have a value which is not used in the hook function scope but I want the effect hook to run whenever that value has changed?**
 <br/>
