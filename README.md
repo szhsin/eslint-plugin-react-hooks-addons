@@ -3,6 +3,7 @@
 > ESLint rule to check unused and potentially unnecessary dependencies in React Hooks.
 
 [![NPM](https://img.shields.io/npm/v/eslint-plugin-react-hooks-addons.svg)](https://www.npmjs.com/package/eslint-plugin-react-hooks-addons)
+[![npm downloads](https://img.shields.io/npm/dt/eslint-plugin-react-hooks-addons)](https://www.npmjs.com/package/eslint-plugin-react-hooks-addons)
 
 ## Why?
 
