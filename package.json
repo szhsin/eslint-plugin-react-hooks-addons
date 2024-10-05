@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-react-hooks-addons",
-  "version": "0.3.1",
+  "version": "0.4.0",
   "author": "Zheng Song",
   "license": "MIT",
   "description": "ESLint rule to check unused and potentially unnecessary dependencies in React Hooks.",
@@ -8,7 +8,7 @@
   "homepage": "https://github.com/szhsin/eslint-plugin-react-hooks-addons",
   "main": "lib/index.js",
   "files": [
-    "lib"
+    "lib/"
   ],
   "keywords": [
     "eslint",
@@ -18,23 +18,30 @@
     "hook"
   ],
   "scripts": {
-    "build": "babel src/rules/*.js --out-dir lib/rules",
+    "build": "babel src/ --out-dir lib/",
     "start": "npm run build -- -w",
     "test": "node tests/rules/*.js",
     "pret": "prettier --write .",
-    "lint": "eslint src/",
-    "eg": "eslint --rulesdir lib/rules examples/"
+    "lint": "eslint .",
+    "eg": "cd examples && eslint ."
   },
   "peerDependencies": {
     "eslint": ">=3.0.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.19.3",
-    "@babel/core": "^7.19.3",
-    "@babel/preset-env": "^7.19.4",
-    "eslint": "^8.25.0",
-    "eslint-config-prettier": "^8.5.0",
-    "eslint-plugin-react-hooks": "^4.6.0",
-    "prettier": "^2.7.1"
+    "@babel/cli": "^7.25.7",
+    "@babel/core": "^7.25.7",
+    "@babel/preset-env": "^7.25.7",
+    "@eslint/compat": "^1.1.1",
+    "eslint": "^9.12.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-react-hooks": "^4.6.2",
+    "globals": "^15.10.0",
+    "prettier": "^3.3.3"
+  },
+  "overrides": {
+    "eslint-plugin-react-hooks": {
+      "eslint": "$eslint"
+    }
   }
 }

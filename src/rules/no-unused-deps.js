@@ -54,6 +54,7 @@ module.exports = {
 
   create(context) {
     const { effectComment = 'effect dep', additionalHooks } = context.options[0] || {};
+    const sourceCode = context.sourceCode ?? context.getSourceCode();
 
     return {
       'ArrowFunctionExpression,FunctionExpression': function (node) {
@@ -67,15 +68,17 @@ module.exports = {
           return;
         }
 
-        const through = context.getScope().through.map((r) => r.identifier.name);
+        const scope = sourceCode.getScope
+          ? sourceCode.getScope(node)
+          : context.getScope();
+        const through = scope.through.map((r) => r.identifier.name);
         const depArray = parent.arguments[1];
         const deps = depArray.elements.filter(({ type }) => type === 'Identifier');
         const unusedDeps = [];
         for (const dep of deps) {
           if (through.includes(dep.name)) continue;
           if (
-            context
-              .getSourceCode()
+            sourceCode
               .getCommentsBefore(dep)
               .some(({ value }) => value.includes(effectComment))
           ) {

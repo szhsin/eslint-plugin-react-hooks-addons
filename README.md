@@ -62,7 +62,44 @@ yarn add -D eslint-plugin-react-hooks-addons
 
 ## Usage
 
-In your ESLint configuration file:
+### Flat config
+
+```js
+import reactHooksAddons from 'eslint-plugin-react-hooks-addons';
+
+export default [
+  reactHooksAddons.configs.recommended
+  // other configs...
+];
+```
+
+Or, use a custom configuration:
+
+```js
+import reactHooksAddons from 'eslint-plugin-react-hooks-addons';
+
+export default [
+  // other configs...
+  {
+    plugins: {
+      ['react-hooks-addons']: reactHooksAddons
+    },
+    rules: {
+      'react-hooks-addons/no-unused-deps': 'warn'
+    }
+  }
+];
+```
+
+### Legacy config
+
+```json
+{
+  "extends": ["plugin:react-hooks-addons/recommended-legacy"]
+}
+```
+
+Or, use a custom configuration:
 
 ```json
 {
@@ -72,6 +109,8 @@ In your ESLint configuration file:
   }
 }
 ```
+
+### Effect deps
 
 Explicitly mark a dependency as effectful with `/* effect dep */` comment:
 
