@@ -9,24 +9,22 @@ import reactHooksAddons from '../lib/index.js';
 
 export default [
   eslint.configs.recommended,
+  reactHooksAddons.configs.recommended,
   prettier,
   {
     languageOptions: {
       ecmaVersion: 'latest',
-      sourceType: 'module',
       globals: {
         ...globals.browser
       }
     },
     plugins: {
       // @ts-ignore
-      ['react-hooks']: fixupPluginRules(reactHooks),
-      ['react-hooks-addons']: reactHooksAddons
+      ['react-hooks']: fixupPluginRules(reactHooks)
     },
     rules: {
       'react-hooks/rules-of-hooks': 'error',
-      'react-hooks/exhaustive-deps': 'error',
-      'react-hooks-addons/no-unused-deps': 'warn'
+      'react-hooks/exhaustive-deps': 'error'
     }
   }
 ];
