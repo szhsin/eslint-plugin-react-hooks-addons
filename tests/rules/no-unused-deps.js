@@ -3,7 +3,7 @@
 const rule = require('../../lib/rules/no-unused-deps');
 const { RuleTester } = require('eslint');
 
-const ruleTester = new RuleTester({ parserOptions: { ecmaVersion: 'latest' } });
+const ruleTester = new RuleTester({ languageOptions: { ecmaVersion: 'latest' } });
 
 const getError = (
   unusedDeps,
