@@ -8,7 +8,7 @@ export default [
   eslint.configs.recommended,
   prettier,
   {
-    ignores: ['lib/rules/', 'examples/']
+    ignores: ['lib/', 'examples/']
   },
   {
     languageOptions: {
