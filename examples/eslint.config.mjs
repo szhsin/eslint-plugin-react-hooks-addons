@@ -20,7 +20,7 @@ export default [
     },
     plugins: {
       // @ts-ignore
-      ['react-hooks']: fixupPluginRules(reactHooks)
+      'react-hooks': fixupPluginRules(reactHooks)
     },
     rules: {
       'react-hooks/rules-of-hooks': 'error',
