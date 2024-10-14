@@ -82,7 +82,7 @@ export default [
   // other configs...
   {
     plugins: {
-      ['react-hooks-addons']: reactHooksAddons
+      'react-hooks-addons': reactHooksAddons
     },
     rules: {
       'react-hooks-addons/no-unused-deps': 'warn'

@@ -19,7 +19,7 @@ const rules = {
 
 plugin.configs.recommended = {
   plugins: {
-    ['react-hooks-addons']: plugin
+    'react-hooks-addons': plugin
   },
   rules
 };
