@@ -1,7 +1,6 @@
 // @ts-check
 
 import eslint from '@eslint/js';
-import { fixupPluginRules } from '@eslint/compat';
 import globals from 'globals';
 import prettier from 'eslint-config-prettier';
 import reactHooks from 'eslint-plugin-react-hooks';
@@ -19,8 +18,7 @@ export default [
       }
     },
     plugins: {
-      // @ts-ignore
-      'react-hooks': fixupPluginRules(reactHooks)
+      'react-hooks': reactHooks
     },
     rules: {
       'react-hooks/rules-of-hooks': 'error',
