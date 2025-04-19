@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "emitDeclarationOnly": true,
+    "declaration": true,
+    "declarationDir": "./types",
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true,
+    "moduleResolution": "bundler",
+    "strict": true,
+    "skipLibCheck": true,
+    "target": "esnext",
+    "esModuleInterop": true
+  },
+  "exclude": ["examples/", "types/"]
+}

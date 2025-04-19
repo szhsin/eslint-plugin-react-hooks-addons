@@ -4,8 +4,11 @@ import eslint from '@eslint/js';
 import globals from 'globals';
 import prettier from 'eslint-config-prettier';
 import reactHooks from 'eslint-plugin-react-hooks';
-import reactHooksAddons from '../lib/index.js';
+import reactHooksAddons from 'eslint-plugin-react-hooks-addons';
 
+/**
+ * @type {import('eslint').Linter.Config[]}
+ */
 export default [
   eslint.configs.recommended,
   reactHooksAddons.configs.recommended,

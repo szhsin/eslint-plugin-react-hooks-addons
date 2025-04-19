@@ -1,6 +1,6 @@
 'use strict';
 
-const rule = require('../../lib/rules/no-unused-deps');
+const rule = require('../../dist/cjs/rules/no-unused-deps.cjs');
 const { RuleTester } = require('eslint');
 
 const ruleTester = new RuleTester({ languageOptions: { ecmaVersion: 'latest' } });
