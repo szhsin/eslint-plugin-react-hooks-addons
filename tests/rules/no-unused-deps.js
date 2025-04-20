@@ -26,6 +26,16 @@ ruleTester.run('no-unused-deps', /** @type {import('eslint').Rule.RuleModule} */
       useEffect(() => {
           document.title = usedVar;
       }, [usedVar, /* effect dep */ effectVar]);
+    `,
+    `
+      React.useEffect(() => {
+        document.title = usedVar;
+      }, [usedVar, /* effect dep */ effectVar]);
+    `,
+    `
+      R.useEffect(() => {
+        document.title = usedVar;
+      }, [usedVar, effectVar]);
     `
   ],
 
@@ -33,6 +43,14 @@ ruleTester.run('no-unused-deps', /** @type {import('eslint').Rule.RuleModule} */
     {
       code: `
         useLayoutEffect(() => {
+            document.title = usedVar;
+        }, [usedVar, unusedVar]);
+      `,
+      errors: [getError("'unusedVar'", { hook: 'useLayoutEffect' })]
+    },
+    {
+      code: `
+        React.useLayoutEffect(() => {
             document.title = usedVar;
         }, [usedVar, unusedVar]);
       `,

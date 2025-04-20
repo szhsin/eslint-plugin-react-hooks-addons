@@ -1,6 +1,7 @@
 {
   "name": "examples",
   "devDependencies": {
+    "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-hooks-addons": "file:.."
   }
 }

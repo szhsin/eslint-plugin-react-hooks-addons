@@ -3,7 +3,7 @@ import _package from './package.json';
 import noUnusedDeps from './rules/no-unused-deps';
 
 const rules: Linter.RulesRecord = {
-  'react-hooks-addons/no-unused-deps': 'warn'
+  'react-hooks-addons/no-unused-deps': 'error'
 };
 
 const plugin = {

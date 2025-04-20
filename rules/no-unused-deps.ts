@@ -10,7 +10,9 @@ type RuleOption = {
   additionalHooks: { pattern?: string; replace?: string };
 };
 
+const reactNamespace = 'React';
 const hookNames = ['useEffect', 'useLayoutEffect'];
+
 const matchHooks = (
   name: string,
   { pattern, replace }: RuleOption['additionalHooks'] = {}
@@ -77,6 +79,15 @@ const rule: Rule.RuleModule = {
       switch (callee.type) {
         case 'Identifier':
           hookName = callee.name;
+          break;
+        case 'MemberExpression':
+          if (
+            callee.object.type === 'Identifier' &&
+            callee.object.name === reactNamespace &&
+            callee.property.type === 'Identifier'
+          ) {
+            hookName = callee.property.name;
+          }
           break;
       }
 
