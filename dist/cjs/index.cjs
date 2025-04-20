@@ -4,7 +4,7 @@ var _package = require('./package.json.cjs');
 var noUnusedDeps = require('./rules/no-unused-deps.cjs');
 
 const rules = {
-  'react-hooks-addons/no-unused-deps': 'warn'
+  'react-hooks-addons/no-unused-deps': 'error'
 };
 const plugin = {
   meta: {
