@@ -1,7 +1,8 @@
+// @ts-check
 'use strict';
 
-const rule = require('../../lib/rules/no-unused-deps');
 const { RuleTester } = require('eslint');
+const rule = require('../../dist/cjs/rules/no-unused-deps.cjs');
 
 const ruleTester = new RuleTester({ languageOptions: { ecmaVersion: 'latest' } });
 
@@ -14,7 +15,7 @@ const getError = (
   type: 'ArrayExpression'
 });
 
-ruleTester.run('no-unused-deps', rule, {
+ruleTester.run('no-unused-deps', /** @type {import('eslint').Rule.RuleModule} */ (rule), {
   valid: [
     `
       useEffect(() => {

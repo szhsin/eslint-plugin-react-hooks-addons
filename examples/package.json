@@ -1,0 +1,6 @@
+{
+  "name": "examples",
+  "devDependencies": {
+    "eslint-plugin-react-hooks-addons": "file:.."
+  }
+}

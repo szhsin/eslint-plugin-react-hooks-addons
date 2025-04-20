@@ -11,6 +11,7 @@
         },
         "include": ["@babel/plugin-transform-nullish-coalescing-operator"]
       }
-    ]
+    ],
+    "@babel/preset-typescript"
   ]
 }
