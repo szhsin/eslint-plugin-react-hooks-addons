@@ -3,7 +3,7 @@
  * @author Zheng Song
  */
 
-import type { Rule } from 'eslint';
+import type { Rule, Scope } from 'eslint';
 
 type RuleOption = {
   effectComment: string;
@@ -93,7 +93,9 @@ const rule: Rule.RuleModule = {
 
       if (!hookName || !matchHooks(hookName, additionalHooks)) return;
 
-      const scope = sourceCode.getScope ? sourceCode.getScope(node) : context.getScope();
+      const scope = sourceCode.getScope
+        ? sourceCode.getScope(node)
+        : (context as unknown as { getScope: () => Scope.Scope }).getScope();
       const through = scope.through.map((r) => r.identifier.name);
       const depArray = parent.arguments[1];
       const deps = depArray.elements.filter((e) => e?.type === 'Identifier');

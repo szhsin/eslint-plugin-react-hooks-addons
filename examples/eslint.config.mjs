@@ -11,6 +11,7 @@ import reactHooksAddons from 'eslint-plugin-react-hooks-addons';
  */
 export default [
   eslint.configs.recommended,
+  reactHooks.configs.flat.recommended,
   reactHooksAddons.configs.recommended,
   prettier,
   {
@@ -20,12 +21,10 @@ export default [
         ...globals.browser
       }
     },
-    plugins: {
-      'react-hooks': reactHooks
-    },
     rules: {
       'react-hooks/rules-of-hooks': 'error',
-      'react-hooks/exhaustive-deps': 'error'
+      'react-hooks/exhaustive-deps': 'error',
+      'react-hooks/set-state-in-effect': 'off'
     }
   }
 ];

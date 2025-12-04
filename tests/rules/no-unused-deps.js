@@ -7,6 +7,7 @@ const rule = require('../../dist/cjs/rules/no-unused-deps.cjs');
 const ruleTester = new RuleTester({ languageOptions: { ecmaVersion: 'latest' } });
 
 const getError = (
+  /** @type {string} */
   unusedDeps,
   { hook = 'useEffect', effectComment = 'effect dep' } = {}
 ) => ({
