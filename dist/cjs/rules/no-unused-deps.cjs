@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * @fileoverview Rule to check unused dependencies in React Hooks
+ * Rule to check unused dependencies in React Hooks
  * @author Zheng Song
  */
 

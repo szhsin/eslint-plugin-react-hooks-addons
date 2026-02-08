@@ -32,8 +32,8 @@
     "test": "node tests/rules/*.js",
     "pret": "prettier -c .",
     "pret:fix": "prettier -w .",
-    "lint": "eslint .",
-    "eg": "cd examples && eslint .",
+    "lint": "oxlint --type-aware --ignore-pattern=examples",
+    "eg": "cd examples && npm run lint",
     "build": "run-s pret clean types lint bundle"
   },
   "peerDependencies": {
@@ -41,20 +41,19 @@
   },
   "devDependencies": {
     "@babel/cli": "^7.28.6",
-    "@babel/core": "^7.28.6",
-    "@babel/preset-env": "^7.28.6",
+    "@babel/core": "^7.29.0",
+    "@babel/preset-env": "^7.29.0",
     "@babel/preset-typescript": "^7.28.5",
     "@rollup/plugin-babel": "^6.1.0",
     "@rollup/plugin-json": "^6.1.0",
     "@rollup/plugin-node-resolve": "^16.0.3",
     "deplift": "^1.1.1",
-    "eslint": "^9.39.2",
-    "eslint-config-prettier": "^10.1.8",
-    "globals": "^17.2.0",
+    "eslint": "^10.0.0",
     "npm-run-all": "^4.1.5",
+    "oxlint": "^1.43.0",
+    "oxlint-tsgolint": "^0.11.5",
     "prettier": "^3.8.1",
     "rollup": "^4.57.1",
-    "typescript": "^5.9.3",
-    "typescript-eslint": "^8.54.0"
+    "typescript": "^5.9.3"
   }
 }

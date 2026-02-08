@@ -9,11 +9,12 @@ const ruleTester = new RuleTester({ languageOptions: { ecmaVersion: 'latest' } }
 const getError = (
   /** @type {string} */
   unusedDeps,
-  { hook = 'useEffect', effectComment = 'effect dep' } = {}
+  { hook = 'useEffect', effectComment = 'effect dep', column = 0, endColumn = 0 } = {}
 ) => ({
   messageId: 'unused',
   data: { unusedDeps, hook, effectComment },
-  type: 'ArrayExpression'
+  ...(column && { column }),
+  ...(endColumn && { endColumn })
 });
 
 ruleTester.run('no-unused-deps', /** @type {import('eslint').Rule.RuleModule} */ (rule), {
@@ -47,7 +48,7 @@ ruleTester.run('no-unused-deps', /** @type {import('eslint').Rule.RuleModule} */
             document.title = usedVar;
         }, [usedVar, unusedVar]);
       `,
-      errors: [getError("'unusedVar'", { hook: 'useLayoutEffect' })]
+      errors: [getError("'unusedVar'", { hook: 'useLayoutEffect', column: 12 })]
     },
     {
       code: `
@@ -55,7 +56,7 @@ ruleTester.run('no-unused-deps', /** @type {import('eslint').Rule.RuleModule} */
             document.title = usedVar;
         }, [usedVar, unusedVar]);
       `,
-      errors: [getError("'unusedVar'", { hook: 'useLayoutEffect' })]
+      errors: [getError("'unusedVar'", { hook: 'useLayoutEffect', column: 12 })]
     },
     {
       code: `
