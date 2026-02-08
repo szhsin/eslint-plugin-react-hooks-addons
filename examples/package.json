@@ -1,7 +1,14 @@
 {
   "name": "examples",
+  "scripts": {
+    "lint": "oxlint .; eslint ."
+  },
   "devDependencies": {
-    "eslint-plugin-react-hooks": "^7.0.1",
-    "eslint-plugin-react-hooks-addons": "file:.."
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.0.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-react-hooks-addons": "file:..",
+    "globals": "^17.3.0",
+    "oxlint": "^1.43.0"
   }
 }

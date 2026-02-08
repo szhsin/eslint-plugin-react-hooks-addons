@@ -1,9 +1,9 @@
 /**
- * @fileoverview Rule to check unused dependencies in React Hooks
+ * Rule to check unused dependencies in React Hooks
  * @author Zheng Song
  */
 
-import type { Rule, Scope } from 'eslint';
+import type { Rule, Scope, SourceCode } from 'eslint';
 
 type RuleOption = {
   effectComment: string;
@@ -62,7 +62,9 @@ const rule: Rule.RuleModule = {
   create(context) {
     const { effectComment = 'effect dep', additionalHooks } =
       (context.options[0] as RuleOption) || {};
-    const sourceCode = context.sourceCode ?? context.getSourceCode();
+    const sourceCode =
+      context.sourceCode ??
+      (context as unknown as { getSourceCode: () => SourceCode }).getSourceCode();
 
     const nodeListener: Rule.NodeListener['FunctionExpression'] = (node) => {
       const { parent } = node;
