@@ -5,10 +5,10 @@
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
-    "eslint": "^10.0.1",
+    "eslint": "^10.0.2",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-react-hooks-addons": "file:..",
-    "globals": "^17.3.0",
-    "oxlint": "^1.49.0"
+    "globals": "^17.4.0",
+    "oxlint": "^1.51.0"
   }
 }
