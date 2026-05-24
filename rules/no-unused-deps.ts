@@ -6,8 +6,8 @@
 import type { Rule, Scope, SourceCode } from 'eslint';
 
 type RuleOption = {
-  effectComment: string;
-  additionalHooks: { pattern?: string; replace?: string };
+  effectComment?: string;
+  additionalHooks?: { pattern?: string; replace?: string };
 };
 
 const reactNamespace = 'React';
