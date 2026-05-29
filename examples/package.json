@@ -10,6 +10,6 @@
     "eslint-plugin-react-hooks": "^7.1.1",
     "eslint-plugin-react-hooks-addons": "file:..",
     "globals": "^17.6.0",
-    "oxlint": "^1.66.0"
+    "oxlint": "^1.67.0"
   }
 }
