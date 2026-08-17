@@ -38,6 +38,33 @@ ruleTester.run('no-unused-deps', /** @type {import('eslint').Rule.RuleModule} */
       R.useEffect(() => {
         document.title = usedVar;
       }, [usedVar, effectVar]);
+    `,
+    `
+      useEffect(() => {
+          document.title = props.title;
+      }, [props.title]);
+    `,
+    `
+      useEffect(() => {
+          document.title = props.title;
+      }, [props.title, /* effect dep */ props.version]);
+    `,
+    `
+      useEffect(() => {
+          document.title = a.b.c;
+      }, [a.b.c]);
+    `,
+    // the hook body references the same root, so a sibling member dependency is not reported
+    `
+      useEffect(() => {
+          document.title = props.title;
+      }, [props.version]);
+    `,
+    // a dependency that is not rooted in an identifier cannot be traced
+    `
+      useEffect(() => {
+          document.title = usedVar;
+      }, [getItem().value]);
     `
   ],
 
@@ -65,6 +92,39 @@ ruleTester.run('no-unused-deps', /** @type {import('eslint').Rule.RuleModule} */
         }, [usedVar, unusedVar, /* effect dep */ effectVar]);
       `,
       errors: [getError("'unusedVar'")]
+    },
+    {
+      code: `
+        useEffect(() => {
+            document.title = usedVar;
+        }, [usedVar, unusedProps.value]);
+      `,
+      errors: [getError("'unusedProps.value'")]
+    },
+    {
+      code: `
+        useEffect(() => {
+            document.title = usedVar;
+        }, [usedVar, unusedProps.a.b]);
+      `,
+      errors: [getError("'unusedProps.a.b'")]
+    },
+    {
+      code: `
+        useEffect(() => {
+            document.title = usedVar;
+        }, [usedVar, unusedProps.value, /* effect dep */ effectProps.value]);
+      `,
+      errors: [getError("'unusedProps.value'")]
+    },
+    {
+      code: `
+        useEffect(() => {
+            const shadowedProps = usedVar;
+            document.title = shadowedProps.value;
+        }, [usedVar, shadowedProps.value]);
+      `,
+      errors: [getError("'shadowedProps.value'")]
     },
     {
       code: `

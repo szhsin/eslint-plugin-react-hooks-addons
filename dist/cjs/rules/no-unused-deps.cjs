@@ -7,6 +7,18 @@
 
 const reactNamespace = 'React';
 const hookNames = ['useEffect', 'useLayoutEffect'];
+
+/**
+ * Resolves the identifier a dependency is rooted in, so that member expression dependencies such as
+ * `props.value` can be checked against the identifiers the hook body references.
+ */
+const rootIdentifier = node => {
+  let current = node;
+  while (current.type === 'MemberExpression') {
+    current = current.object;
+  }
+  return current.type === 'Identifier' ? current : undefined;
+};
 const matchHooks = (name, {
   pattern,
   replace
@@ -79,16 +91,18 @@ const rule = {
       const scope = sourceCode.getScope ? sourceCode.getScope(node) : context.getScope();
       const through = scope.through.map(r => r.identifier.name);
       const depArray = parent.arguments[1];
-      const deps = depArray.elements.filter(e => (e == null ? void 0 : e.type) === 'Identifier');
+      const deps = depArray.elements.filter(e => (e == null ? void 0 : e.type) === 'Identifier' || (e == null ? void 0 : e.type) === 'MemberExpression');
       const unusedDeps = [];
       for (const dep of deps) {
-        if (through.includes(dep.name)) continue;
+        const root = rootIdentifier(dep);
+        // a computed root, such as `getItem().value`, cannot be traced back to an identifier
+        if (!root || through.includes(root.name)) continue;
         if (sourceCode.getCommentsBefore(dep).some(({
           value
         }) => value.includes(effectComment))) {
           continue;
         }
-        unusedDeps.push(dep.name);
+        unusedDeps.push(sourceCode.getText(dep));
       }
       if (unusedDeps.length > 0) {
         context.report({
